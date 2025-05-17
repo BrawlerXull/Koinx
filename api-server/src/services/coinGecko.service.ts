@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { SUPPORTED_COINS } from '../constants/coins';
 
-const VALID_COINS = new Set(['bitcoin', 'ethereum', 'matic-network']);
+const VALID_COINS = new Set(SUPPORTED_COINS);
 
 export const fetchCoinStats = async (coin: string) => {
   if (!VALID_COINS.has(coin)) {

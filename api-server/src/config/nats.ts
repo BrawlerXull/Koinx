@@ -1,8 +1,8 @@
 import { connect, NatsConnection, StringCodec } from 'nats';
 import { storeCryptoStats } from '../services/stats.service';
+import { SUPPORTED_COINS } from '../constants/coins';
 
 let nc: NatsConnection;
-const VALID_COINS = ['bitcoin', 'ethereum', 'matic-network'];
 
 export const connectNATS = async () => {
   nc = await connect({ servers: process.env.NATS_URL! });
@@ -21,7 +21,7 @@ export const connectNATS = async () => {
         }
 
         console.log('🔁 Received update trigger. Updating all valid coins...');
-        for (const coin of VALID_COINS) {
+        for (const coin of SUPPORTED_COINS) {
           try {
             await storeCryptoStats(coin);
             console.log(`✅ Stored stats for: ${coin}`);
