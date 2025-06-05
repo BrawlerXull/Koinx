@@ -25,6 +25,13 @@ A microservices-based architecture for a cryptocurrency trading system using Doc
 
 ---
 
+## Grafana Dashboard
+
+<img width="1100" alt="Screenshot 2025-06-05 at 11 45 08 PM" src="https://github.com/user-attachments/assets/e2005660-999b-421b-9724-ac48dcfb10c7" />
+
+
+---
+
 ## Architecture
 
 ```
