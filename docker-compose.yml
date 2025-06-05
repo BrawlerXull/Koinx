@@ -80,8 +80,24 @@ services:
     networks:
       - app-network
 
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3001:3000" 
+    depends_on:
+      - prometheus
+    networks:
+      - app-network
+    volumes:
+      - grafana-data:/var/lib/grafana
+    restart: always
+
+
 volumes:
   mongo-data:
+  grafana-data:
 
 networks:
   app-network:
