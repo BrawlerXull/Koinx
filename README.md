@@ -1,3 +1,4 @@
+
 # Crypto Trading Microservices Project
 
 ## Overview
@@ -17,6 +18,10 @@ A microservices-based architecture for a cryptocurrency trading system using Doc
     - Lightweight publish-subscribe messaging system for internal communication
 5. **NGINX** (`nginx`)
     - Acts as a reverse proxy for the API server
+6. **Prometheus** (`prometheus`)
+    - Collects metrics from API server and other services
+7. **Grafana** (`grafana`)
+    - Visualizes metrics collected by Prometheus with customizable dashboards
 
 ---
 
@@ -52,6 +57,18 @@ A microservices-based architecture for a cryptocurrency trading system using Doc
                                               +---------+---------+
                                               |   Worker Server   |
                                               +-------------------+
+
+
+             +-------------------+                   +-------------------+
+             |    Prometheus     |<------------------|   API Server      |
+             |  (Metrics Store)  |                   +-------------------+
+             +-------------------+
+                       |
+                       v
+             +-------------------+
+             |     Grafana       |
+             | (Metrics Visual.) |
+             +-------------------+
 ```
 
 ---
@@ -68,7 +85,19 @@ A microservices-based architecture for a cryptocurrency trading system using Doc
 docker-compose up --build
 ```
 
-### Folder Structure
+---
+
+## Monitoring Setup
+
+- **Prometheus** scrapes metrics exposed by the API Server and other components on port `9100`.
+- **Grafana** connects to Prometheus as a data source and provides dashboards for real-time monitoring.
+- You can access:
+  - Prometheus UI at: `http://localhost:9090`
+  - Grafana UI at: `http://localhost:3001`
+
+---
+
+## Folder Structure
 
 ```
 .
@@ -78,6 +107,8 @@ docker-compose up --build
 │   └── Dockerfile
 ├── nginx/
 │   └── nginx.conf
+├── prometheus/
+│   └── prometheus.yml
 ├── docker-compose.yml
 ```
 
@@ -89,6 +120,7 @@ docker-compose up --build
 - `NODE_ENV=production`
 - `NATS_URL=nats://nats:4222`
 - `MONGO_URI=mongodb://mongo:27017/cryptodb` or use Atlas URI
+- `METRICS_PORT=9100` (exposes Prometheus metrics)
 
 **Worker Server**
 - `NODE_ENV=production`
